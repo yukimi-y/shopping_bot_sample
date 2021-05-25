@@ -1,10 +1,10 @@
 class LinebotsController < ApplicationController
   require 'line/bot'
 
-  protect_from_forgery except: [:callback]
+  protect_from_forgery except: :callback
 
   def callback
-    body = reqiest.body.read
+    body = request.body.read
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     unless client.validate_signature(body, signature)
       return head :bad_request
